@@ -1,0 +1,29 @@
+@import "ember-bootstrap/bootstrap";
+
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.provider-form {
+  flex-grow: 1;
+  padding-right: 50px;
+}
+
+.provider-list {
+  flex-grow: 3;
+
+  .provider-row {
+    padding: .5em .2em;
+  }
+}

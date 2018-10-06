@@ -1,0 +1,27 @@
+<div>
+  <h3>Provider List</h3>
+</div>
+
+{{#each providersSorted as |provider|}}
+  <div class="provider-row flex-row justify-between">
+    <div class="provider-row-left flex-row">
+      <div>
+        <input type="checkbox" />
+      </div>
+
+      <div class="flex-column">
+        <div>{{provider.lastName}}, {{provider.firstName}}</div>
+        <div>{{provider.emailAddress}}</div>
+      </div>
+    </div>
+
+    <div class="provider-row-right">
+      <div class="flex-column">
+        <div>{{provider.specialty}}</div>
+        <div>{{provider.practiceName}}</div>
+      </div>
+    </div>
+  </div>
+{{else}}
+  <div>No Providers Exist, Use <b>Create Provider</b> to Create One!</div>
+{{/each}}
