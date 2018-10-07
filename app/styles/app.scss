@@ -3,6 +3,9 @@
 $blue: #074277;
 @import "ember-bootstrap/bootstrap";
 
+@import 'ember-power-select/themes/bootstrap';
+@import 'ember-power-select';
+
 ::-webkit-scrollbar {
   width: 10px;
 }

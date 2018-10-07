@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { set, get } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
-import { assign } from '@ember/polyfills';
 
 export default Component.extend({
   classNames: ["provider-form flex-column"],

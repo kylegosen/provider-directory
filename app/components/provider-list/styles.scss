@@ -6,16 +6,46 @@
   justify-content: space-between;
 }
 
+.filter-sort {
+  flex-shrink: 0;
+
+  .filter-by {
+    width: initial;
+  }
+
+  .sort-by {
+    align-items: center;
+    justify-content: flex-end;
+
+    .label {
+      padding-right: .25em;
+    }
+
+    .ember-power-select-trigger {
+      width: 10em;
+    }
+  }
+}
+
 .provider-rows {
+  flex-grow: 1;
   overflow-y: auto;
 }
 
 .provider-row {
+  flex-shrink: 0;
   padding: .5em .2em;
 }
 
 .provider-row:nth-child(even) {
   background-color: #f1f1f1;
+}
+
+.results-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
 }
 
 .checkbox {
