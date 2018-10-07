@@ -1,0 +1,16 @@
+& {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.header {
+
+}
+
+.provider-container {
+  display: flex;
+  flex-grow: 1;
+
+  padding: 2em;
+}

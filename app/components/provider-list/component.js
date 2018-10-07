@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed, get } from '@ember/object';
+import { computed } from '@ember/object';
 import { reads, sort } from '@ember/object/computed';
 
 export default Component.extend({

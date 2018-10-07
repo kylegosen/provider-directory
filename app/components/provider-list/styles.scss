@@ -1,0 +1,18 @@
+& {
+  flex-grow: 3;
+}
+
+.provider-row {
+  padding: .5em .2em;
+}
+
+.checkbox {
+  padding-right: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.provider-full-name {
+  font-weight: bold;
+}
