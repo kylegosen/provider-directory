@@ -2,9 +2,13 @@ import Component from '@ember/component';
 import { set, get } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 import { getOwner } from '@ember/application';
+import { assign } from '@ember/polyfills';
 
 export default Component.extend({
   classNames: ["provider-form flex-column"],
+
+  // Params
+  create: null,
 
   provider: null,
 
@@ -12,27 +16,22 @@ export default Component.extend({
     this._super(...arguments);
 
     if(isEmpty(get(this, "provider"))) {
-      let owner = getOwner(this);
-      let provider = owner.lookup("object:provider", {singleton: false});
-
-      set(this, "provider", provider);
+      this.resetProvider();
     }
   },
 
-  resetForm(){
-    this.setProperties({
-      lastName: null,
-      firstName: null,
-      emailAddress: null,
-      specialty: null,
-      practiceName: null
-    });
+  resetProvider(){
+    let provider = getOwner(this).lookup("object:provider", {singleton: false});
+    set(this, "provider", provider);
   },
 
   actions: {
-    submit(){
-      // TODO
-      console.log("onSubmit")
+    create(){
+      let create = get(this, "create");
+      if(create){
+        create(get(this, "provider"));
+      }
+      this.resetProvider();
     }
   }
 

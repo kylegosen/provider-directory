@@ -1,12 +1,15 @@
-<div>
-  <h4>Create Provider</h4>
-</div>
+<div class="provider-content">
+  <div>
+    <h4>Create Provider</h4>
+  </div>
 
-{{#bs-form formLayout="vertical" model=provider onSubmit=(action "submit") as |form|}}
-  {{form.element controlType="text" label="Last Name" placeholder="Last Name" property="lastName"}}
-  {{form.element controlType="text" label="First Name" placeholder="Last Name" property="firstName"}}
-  {{form.element controlType="email" label="Email" placeholder="Email Address" property="emailAddress"}}
-  {{form.element controlType="text" label="Specialty" placeholder="Specialty" property="specialty"}}
-  {{form.element controlType="text" label="Practice Name" placeholder="Practice Name" property="practiceName"}}
-  {{bs-button defaultText="Submit" type="primary" buttonType="submit"}}
-{{/bs-form}}
+  {{#bs-form formLayout="vertical" model=provider onSubmit=(action "create") as |form|}}
+    {{form.element controlType="text" label="Last Name" property="lastName"}}
+    {{form.element controlType="text" label="First Name" property="firstName"}}
+    {{form.element controlType="email" label="Email" property="emailAddress"}}
+    {{form.element controlType="text" label="Specialty" property="specialty"}}
+    {{form.element controlType="text" label="Practice Name" property="practiceName"}}
+
+    {{bs-button class="submit-button" defaultText="Submit" type="primary" buttonType="submit"}}
+  {{/bs-form}}
+</div>

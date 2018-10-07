@@ -1,25 +1,29 @@
-<div>
+<div class="header">
   <h4>Provider List</h4>
 </div>
 
-{{#each providersSorted as |provider|}}
-  <div class="provider-row flex-row justify-between">
-    <div class="provider-row-left flex-row">
-      <div class="checkbox">
-        <input type="checkbox" />
+<div class="provider-rows">
+  {{#each providersSorted as |provider|}}
+    <div class="provider-row flex-row justify-between">
+      <div class="provider-row-left flex-row">
+        <div class="checkbox">
+          <input type="checkbox" />
+        </div>
+
+        <div class="flex-column">
+          <div class="provider-full-name">{{provider.lastName}}, {{provider.firstName}}</div>
+          <div>{{provider.emailAddress}}</div>
+        </div>
       </div>
 
-      <div class="flex-column">
-        <div class="provider-full-name">{{provider.lastName}}, {{provider.firstName}}</div>
-        <div>{{provider.emailAddress}}</div>
+      <div class="provider-row-right text-align-right flex-column">
+        <div>{{provider.specialty}}</div>
+        <div>{{provider.practiceName}}</div>
       </div>
     </div>
+  {{else}}
+    <div>No Providers Exist, Use <b>Create Provider</b> to Create One!</div>
+  {{/each}}
+</div>
 
-    <div class="provider-row-right text-align-right flex-column">
-      <div>{{provider.specialty}}</div>
-      <div>{{provider.practiceName}}</div>
-    </div>
-  </div>
-{{else}}
-  <div>No Providers Exist, Use <b>Create Provider</b> to Create One!</div>
-{{/each}}
+{{bs-button class="remove-button" defaultText="Remove" type="primary" onClick=(action "remove")}}

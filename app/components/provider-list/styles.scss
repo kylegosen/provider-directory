@@ -1,9 +1,21 @@
 & {
   flex-grow: 3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.provider-rows {
+  overflow-y: auto;
 }
 
 .provider-row {
   padding: .5em .2em;
+}
+
+.provider-row:nth-child(even) {
+  background-color: #f1f1f1;
 }
 
 .checkbox {
@@ -15,4 +27,11 @@
 
 .provider-full-name {
   font-weight: bold;
+}
+
+.remove-button {
+  margin-top: 1em;
+  align-self: flex-end;
+  width: 25%;
+  flex-shrink: 0;
 }

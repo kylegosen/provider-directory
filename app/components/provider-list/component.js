@@ -3,7 +3,7 @@ import { computed } from '@ember/object';
 import { reads, sort } from '@ember/object/computed';
 
 export default Component.extend({
-  classNames: ["provider-list"],
+  classNames: ["provider-list provider-content"],
 
   // Params
   providers: null,
@@ -15,6 +15,12 @@ export default Component.extend({
       return ["lastName:asc", "firstName:asc"];
     }
   }),
-  providersSorted: sort("providersFiltered", "sorting")
+  providersSorted: sort("providersFiltered", "sorting"),
+
+  actions: {
+    remove(){
+      // TODO
+    }
+  }
 
 });
