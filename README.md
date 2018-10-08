@@ -1,7 +1,13 @@
 # provider-directory
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+## TL;DR
++ npm install -g ember-cli (if necessary)
++ git clone https://github.com/kylegosen/provider-directory.git
++ cd provider-directory
++ npm install
++ ember s
++ Open http://localhost:4200 in a browser
++ ember t -s (to run/view tests)
 
 ## Prerequisites
 
