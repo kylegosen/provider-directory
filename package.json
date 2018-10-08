@@ -1,6 +1,6 @@
 {
   "name": "provider-directory",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Provider Directory Code Sample",
   "repository": "",
@@ -49,6 +49,7 @@
     "ember-power-select": "^2.0.9",
     "ember-resolver": "^5.0.1",
     "ember-sass-bootstrap": "^0.2.0",
+    "ember-sinon": "^2.2.0",
     "ember-source": "~3.4.0",
     "ember-uuid": "^1.0.1",
     "eslint-plugin-ember": "^5.2.0",

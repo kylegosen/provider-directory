@@ -1,0 +1,5 @@
+Add more tests
+Make 'Create Provider' a fixed with to avoid growing/shrinking/flickering
+Nicer checkbox
+Use Mirage and Ember data to mock REST calls
+Document code

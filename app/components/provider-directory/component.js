@@ -2,13 +2,22 @@ import Component from '@ember/component';
 import { computed, get, set } from '@ember/object';
 import { getOwner } from '@ember/application';
 import { isEmpty } from '@ember/utils';
+import { A } from '@ember/array';
 import {v4} from "ember-uuid";
+import RSVP from 'rsvp';
 
 export default Component.extend({
   classNames: ["provider-directory"],
 
   // Params
-  providers: null,
+  providers: computed({
+    get(){
+      return A();
+    },
+    set(_,v){
+      return v;
+    }
+  }),
 
   provider: computed({
     get(){
@@ -25,6 +34,24 @@ export default Component.extend({
 
   actions: {
     onSubmit(provider){
+      return this._onSubmit(provider);
+    },
+
+    onEdit(provider){
+      this._onEdit(provider);
+    },
+
+    onRemove(providers){
+      this._onRemove(providers);
+    },
+
+    onCancel(){
+      this._onCancel();
+    }
+  },
+
+  _onSubmit(provider){
+    return new RSVP.Promise(resolve => {
       let id = get(provider, "id");
       let providers = get(this, "providers");
 
@@ -42,33 +69,36 @@ export default Component.extend({
         });
       }
 
-      set(this, "provider", this.getNewProvider());
-    },
+      let newProvider = this.getNewProvider();
+      set(this, "provider", newProvider);
 
-    onEdit(provider){
-      let providerCopy = this.getNewProvider();
-      providerCopy.setProperties({
-        id: get(provider, "id"),
-        lastName: get(provider, "lastName"),
-        firstName: get(provider, "firstName"),
-        emailAddress: get(provider, "emailAddress"),
-        specialty: get(provider, "specialty"),
-        practiceName: get(provider, "practiceName")
-      });
-      set(this, "provider", providerCopy);
-    },
+      resolve(newProvider);
+    });
+  },
 
-    onRemove(providers){
-      let removeProviderIds = providers.mapBy("id");
+  _onEdit(provider){
+    let providerCopy = this.getNewProvider();
+    providerCopy.setProperties({
+      id: get(provider, "id"),
+      lastName: get(provider, "lastName"),
+      firstName: get(provider, "firstName"),
+      emailAddress: get(provider, "emailAddress"),
+      specialty: get(provider, "specialty"),
+      practiceName: get(provider, "practiceName")
+    });
+    set(this, "provider", providerCopy);
+  },
 
-      set(this, "providers", get(this, "providers").filter(provider => {
-        return !removeProviderIds.includes(get(provider, "id"));
-      }));
-    },
+  _onRemove(providers){
+    let removeProviderIds = providers.mapBy("id");
 
-    onCancel(){
-      set(this, "provider", this.getNewProvider());
-    }
+    set(this, "providers", get(this, "providers").filter(provider => {
+      return !removeProviderIds.includes(get(provider, "id"));
+    }));
+  },
+
+  _onCancel(){
+    set(this, "provider", this.getNewProvider());
   }
 
 });

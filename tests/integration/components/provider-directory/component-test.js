@@ -6,21 +6,11 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | provider-directory', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
-
+  test("Properties", async function(assert) {
     await render(hbs`{{provider-directory}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      {{#provider-directory}}
-        template block text
-      {{/provider-directory}}
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.equal(this.$(".header").text().trim(), "Provider Directory");
+    assert.equal(this.$(".provider-form").length, 1);
+    assert.equal(this.$(".provider-list").length, 1);
   });
 });

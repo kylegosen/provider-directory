@@ -1,16 +1,24 @@
 <div class="provider-content">
-  <div class="text-align-center">
+  <div class="provider-form-title text-align-center">
     <h4>{{title}}</h4>
   </div>
 
-  {{#bs-form formLayout="vertical" model=provider onSubmit=(action "onSubmitProvider") as |form|}}
-    {{form.element controlType="text" label="Last Name" property="lastName"}}
-    {{form.element controlType="text" label="First Name" property="firstName"}}
-    {{form.element controlType="email" label="Email" property="emailAddress"}}
-    {{form.element controlType="text" label="Specialty" property="specialty"}}
-    {{form.element controlType="text" label="Practice Name" property="practiceName"}}
+  {{#if (not isSaving)}}
+    {{#bs-form formLayout="vertical" model=provider onSubmit=(action "onSubmitProvider") as |form|}}
+      {{form.element controlType="text" label="Last Name" property="lastName"}}
+      {{form.element controlType="text" label="First Name" property="firstName"}}
+      {{form.element controlType="email" label="Email Address" property="emailAddress"}}
+      {{form.element controlType="text" label="Specialty" property="specialty"}}
+      {{form.element controlType="text" label="Practice Name" property="practiceName"}}
 
-    {{bs-button class="cancel-button" defaultText="Cancel" type="light" onClick=(action "onCancel")}}
-    {{bs-button class="submit-button" defaultText="Submit" type="primary" buttonType="submit"}}
-  {{/bs-form}}
+      {{bs-button class="cancel-button" defaultText="Cancel" type="light" onClick=(action "onCancel")}}
+      {{bs-button class="submit-button" defaultText="Submit" type="primary" buttonType="submit"}}
+    {{/bs-form}}
+  {{else}}
+    <div class="loading">
+      <div class="loader"></div>
+    </div>
+  {{/if}}
+
+
 </div>

@@ -27,11 +27,18 @@ export default Component.extend({
       filterBy = filterBy.toLowerCase();
 
       return providers.filter(provider => {
+        // Blank fields will break on filter
+        let specialty = get(provider, "specialty");
+        let specialtySearch = isEmpty(specialty) ? "" : specialty;
+
+        let practiceName = get(provider, "practiceName");
+        let practiceNameSearch = isEmpty(practiceName) ? "" : practiceName;
+
         return get(provider, "lastName").toLowerCase().includes(filterBy)
           || get(provider, "firstName").toLowerCase().includes(filterBy)
           || get(provider, "emailAddress").toLowerCase().includes(filterBy)
-          || get(provider, "specialty").toLowerCase().includes(filterBy)
-          || get(provider, "practiceName").toLowerCase().includes(filterBy);
+          || specialtySearch.toLowerCase().includes(filterBy)
+          || practiceNameSearch.toLowerCase().includes(filterBy);
       });
     }
   }),
@@ -80,8 +87,10 @@ export default Component.extend({
         return ["lastName:asc"];
       }
 
-      return [`${get(selectedSort, "id")}:${get(this, "selectedSortDirection.id")}`,
-        "lastName:asc", "firstName:asc"];
+      let direction = get(this, "selectedSortDirection.id");
+
+      return [`${get(selectedSort, "id")}:${direction}`,
+        `lastName:${direction}`, `firstName:${direction}`];
     }
   }),
   providersSorted: sort("providersFiltered", "sorting"),
