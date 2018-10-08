@@ -1,36 +1,34 @@
 import Component from '@ember/component';
-import { set, get } from '@ember/object';
+import { computed, get } from '@ember/object';
 import { isEmpty } from '@ember/utils';
-import { getOwner } from '@ember/application';
 
 export default Component.extend({
   classNames: ["provider-form flex-column"],
 
   // Params
-  create: null,
-
   provider: null,
+  submitProvider: null,
+  cancelProvider: null,
 
-  init(){
-    this._super(...arguments);
-
-    if(isEmpty(get(this, "provider"))) {
-      this.resetProvider();
+  title: computed("provider.id", {
+    get(){
+      return isEmpty(get(this, "provider.id")) ? "Create Provider" : "Edit Provider";
     }
-  },
-
-  resetProvider(){
-    let provider = getOwner(this).lookup("object:provider", {singleton: false});
-    set(this, "provider", provider);
-  },
+  }),
 
   actions: {
-    create(){
-      let create = get(this, "create");
-      if(create){
-        create(get(this, "provider"));
+    onSubmitProvider(){
+      let submitProvider = get(this, "submitProvider");
+      if(submitProvider){
+        submitProvider(get(this, "provider"));
       }
-      this.resetProvider();
+    },
+
+    onCancel(){
+      let cancelProvider = get(this, "cancelProvider");
+      if(cancelProvider){
+        cancelProvider();
+      }
     }
   }
 

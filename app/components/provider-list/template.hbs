@@ -1,10 +1,10 @@
-<div class="provider-list-header">
+<div class="provider-list-header text-align-center">
   <h4>Provider List</h4>
 </div>
 
 <div class="filter-sort flex-row justify-between">
   <input
-    placeholder="Filter By"
+    placeholder="Search"
     class="filter-by form-control"
     value={{filterBy}}
     oninput={{action (mut filterBy) value="target.value"}}>
@@ -12,9 +12,21 @@
   <div class="sort-by flex-row">
     <div class="label">Sort By</div>
     {{#power-select
+      triggerClass="sort-field"
       selected=selectedSort
       options=sortingOptions
       onchange=(action (mut selectedSort))
+      searchEnabled=false
+      as |sort|
+    }}
+      {{sort.name}}
+    {{/power-select}}
+
+    {{#power-select
+      triggerClass="sort-direction"
+      selected=selectedSortDirection
+      options=sortDirectionOptions
+      onchange=(action (mut selectedSortDirection))
       searchEnabled=false
       as |sort|
     }}
@@ -29,7 +41,9 @@
       <div class="provider-row flex-row justify-between">
         <div class="provider-row-left flex-row">
           <div class="checkbox">
-            <input type="checkbox" />
+            <input type="checkbox"
+                   checked={{provider.shouldRemove}}
+                   onclick={{action (mut provider.shouldRemove) value="target.checked"}}>
           </div>
 
           <div class="flex-column">
@@ -38,17 +52,24 @@
           </div>
         </div>
 
-        <div class="provider-row-right text-align-right flex-column">
-          <div>{{provider.specialty}}</div>
-          <div>{{provider.practiceName}}</div>
+        <div class="provider-row-right text-align-right flex-row">
+          <div class="flex-column">
+            <div>{{provider.specialty}}</div>
+            <div>{{provider.practiceName}}</div>
+          </div>
+          <div class="edit-button">
+            {{#bs-button type="primary" onClick=(action "onEdit" provider)}}
+              {{fa-icon "pencil-square-o"}}
+            {{/bs-button}}
+          </div>
         </div>
       </div>
     {{/each}}
   </div>
 {{else if hasFilter}}
-  <div class="results-message">No Providers Match Your Filter Criteria.</div>
+  <div class="results-message">No Providers Match Your Search.</div>
 {{else}}
-  <div class="results-message">No Providers Exist, Use <b>Create Provider</b> to Create One!</div>
+  <div class="results-message">No Providers Exist, Use &nbsp;<span class="bold">Create Provider</span>&nbsp; to Create One!</div>
 {{/if}}
 
-{{bs-button class="remove-button" defaultText="Remove" type="primary" onClick=(action "remove")}}
+{{bs-button class="remove-button" disabled=(not hasRemovableProviders) defaultText="Remove" type="danger" onClick=(action "onRemove")}}

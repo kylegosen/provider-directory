@@ -40,9 +40,17 @@ html {
 }
 
 .text-align {
+  &-center {
+    text-align: center;
+  }
+
   &-right {
     text-align: right;
   }
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .provider-content {

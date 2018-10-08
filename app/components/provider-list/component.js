@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed, get } from '@ember/object';
-import { sort, notEmpty } from '@ember/object/computed';
+import { sort, notEmpty, filterBy, gt } from '@ember/object/computed';
 import { isEmpty } from '@ember/utils';
 
 export default Component.extend({
@@ -8,6 +8,8 @@ export default Component.extend({
 
   // Params
   providers: null,
+  removeProviders: null,
+  editProvider: null,
 
   hasProviders: notEmpty("providersSorted"),
   hasFilter: notEmpty("filterBy"),
@@ -54,21 +56,53 @@ export default Component.extend({
     }
   }),
 
-  sorting: computed("selectedSort.id", {
+  sortDirectionOptions: computed({
+    get(){
+      return [
+        {id: "asc", name: "Asc"},
+        {id: "desc", name: "Desc"}]
+    }
+  }),
+
+  selectedSortDirection: computed({
+    get(){
+      return get(this, "sortDirectionOptions").find(({id}) => id === "asc");
+    },
+    set(_,v){
+      return v;
+    }
+  }),
+
+  sorting: computed("selectedSort.id", "selectedSortDirection.id", {
     get(){
       let selectedSort = get(this, "selectedSort");
       if(isEmpty(selectedSort)){
         return ["lastName:asc"];
       }
 
-      return [`${get(selectedSort, "id")}:asc`, "lastName:asc", "firstName:asc"];
+      return [`${get(selectedSort, "id")}:${get(this, "selectedSortDirection.id")}`,
+        "lastName:asc", "firstName:asc"];
     }
   }),
   providersSorted: sort("providersFiltered", "sorting"),
 
+  removableProviders: filterBy("providers", "shouldRemove", true),
+  hasRemovableProviders: gt("removableProviders.length", 0),
+
   actions: {
-    remove(){
-      // TODO
+    onEdit(provider){
+      let editProvider = get(this, "editProvider");
+      if(editProvider){
+        editProvider(provider);
+      }
+    },
+
+    onRemove(){
+      let removableProviders = get(this, "removableProviders");
+      let removeProviders = get(this, "removeProviders");
+      if(removableProviders){
+        removeProviders(removableProviders);
+      }
     }
   }
 

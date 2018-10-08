@@ -3,7 +3,15 @@
 </div>
 
 <div class="provider-container flex-row">
-  {{provider-form create=(action "create")}}
+  {{provider-form
+    provider=provider
+    submitProvider=(action "onSubmit")
+    cancelProvider=(action "onCancel")
+  }}
 
-  {{provider-list providers=providers}}
+  {{provider-list
+    providers=providers
+    removeProviders=(action "onRemove")
+    editProvider=(action "onEdit")
+  }}
 </div>

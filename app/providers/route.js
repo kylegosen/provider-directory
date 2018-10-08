@@ -1,27 +1,31 @@
 import Route from '@ember/routing/route';
 import { getOwner } from '@ember/application';
 import { A } from '@ember/array';
+import { v4 } from 'ember-uuid';
 
 export default Route.extend({
   model(){
     // TODO Replace with Mirage - Should be real model as well instead of Provider object
-    let owner = getOwner(this);
-    let provider = owner.lookup("object:provider", {singleton: false});
-
     return A([
-      provider.setProperties({"lastName": "Harris", "firstName": "Mike", "emailAddress": "mharris@updox.com", "specialty": "Pediatrics", "practiceName": "Harris Pediatrics"}),
-      provider.setProperties({"lastName": "Wijoyo", "firstName": "Bimo", "emailAddress": "bwijoyo@updox.com", "specialty": "Podiatry", "practiceName": "Wijoyo Podiatry"}),
-      provider.setProperties({"lastName": "Rose", "firstName": "Nate", "emailAddress": "nrose@updox.com", "specialty": "Surgery", "practiceName": "Rose Cutters"}),
-      provider.setProperties({"lastName": "Carlson", "firstName": "Mike", "emailAddress": "mcarlson@updox.com", "specialty": "Orthopedics", "practiceName": "Carlson Orthopedics"}),
-      provider.setProperties({"lastName": "Witting", "firstName": "Mike", "emailAddress": "mwitting@updox.com", "specialty": "Pediatrics", "practiceName": "Witting’s Well Kids Pediatrics"}),
-      provider.setProperties({"lastName": "Juday", "firstName": "Tobin", "emailAddress": "tjuday@updox.com", "specialty": "General Medicine", "practiceName": "Juday Family Practice"}),
-
-      provider.setProperties({"lastName": "Harris", "firstName": "Mike", "emailAddress": "mharris@updox.com", "specialty": "Pediatrics", "practiceName": "Harris Pediatrics"}),
-      provider.setProperties({"lastName": "Wijoyo", "firstName": "Bimo", "emailAddress": "bwijoyo@updox.com", "specialty": "Podiatry", "practiceName": "Wijoyo Podiatry"}),
-      provider.setProperties({"lastName": "Rose", "firstName": "Nate", "emailAddress": "nrose@updox.com", "specialty": "Surgery", "practiceName": "Rose Cutters"}),
-      provider.setProperties({"lastName": "Carlson", "firstName": "Mike", "emailAddress": "mcarlson@updox.com", "specialty": "Orthopedics", "practiceName": "Carlson Orthopedics"}),
-      provider.setProperties({"lastName": "Witting", "firstName": "Mike", "emailAddress": "mwitting@updox.com", "specialty": "Pediatrics", "practiceName": "Witting’s Well Kids Pediatrics"}),
-      provider.setProperties({"lastName": "Juday", "firstName": "Tobin", "emailAddress": "tjuday@updox.com", "specialty": "General Medicine", "practiceName": "Juday Family Practice"})
+      this.createProvider("Harris", "Mike", "mharris@updox.com", "Pediatrics", "Harris Pediatrics"),
+      this.createProvider("Wijoyo", "Bimo", "bwijoyo@updox.com", "Podiatry", "Wijoyo Podiatry"),
+      this.createProvider("Rose", "Nate", "nrose@updox.com", "Surgery", "Rose Cutters"),
+      this.createProvider("Carlson", "Mike", "mcarlson@updox.com", "Orthopedics", "Carlson Orthopedics"),
+      this.createProvider("Witting", "Mike", "mwitting@updox.com", "Pediatrics", "Witting’s Well Kids Pediatrics"),
+      this.createProvider("Juday", "Tobin", "tjuday@updox.com", "General Medicine", "Juday Family Practice"),
     ]);
+  },
+
+  createProvider(lastName, firstName, emailAddress, specialty, practiceName){
+    let provider = getOwner(this).lookup("object:provider", {singleton: false});
+    provider.setProperties({
+      id: v4(),
+      lastName: lastName,
+      firstName: firstName,
+      emailAddress: emailAddress,
+      specialty: specialty,
+      practiceName: practiceName
+    });
+    return provider;
   }
 });
